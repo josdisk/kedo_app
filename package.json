@@ -1,0 +1,26 @@
+{
+  "name": "kedo-app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "KeDo Smart V — desktop (Qt), native media, APIs, and shared packages",
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev:api": "pnpm --filter @kedov/api start:dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:contracts": "pnpm --filter @kedov/contracts test",
+    "check:contracts": "uv run python scripts/check_cross_language_contracts.py",
+    "db:migrate": "bash scripts/migrate_postgres.sh",
+    "smoke:e2e": "bash scripts/smoke_e2e.sh"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.4",
+    "typescript": "^5.8.3"
+  }
+}

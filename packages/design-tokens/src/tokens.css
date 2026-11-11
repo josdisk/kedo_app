@@ -1,0 +1,17 @@
+:root {
+  --kedov-ink: #0f1419;
+  --kedov-ink-muted: #3d4a57;
+  --kedov-paper: #f7f4ef;
+  --kedov-paper-elevated: #fffdf9;
+  --kedov-accent: #c45c26;
+  --kedov-accent-deep: #8f3d12;
+  --kedov-teal: #1f6f6a;
+  --kedov-teal-soft: #d8ebe8;
+  --kedov-line: #d9d2c7;
+  --kedov-danger: #a11d2e;
+  --kedov-success: #1f6b3a;
+  --kedov-font-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --kedov-font-body: "Source Sans 3", "Source Sans Pro", "Segoe UI", sans-serif;
+  --kedov-radius: 4px;
+  --kedov-shadow: 0 18px 40px rgba(15, 20, 25, 0.08);
+}

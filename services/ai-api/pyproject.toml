@@ -1,0 +1,25 @@
+[project]
+name = "kedo-ai-api"
+version = "0.1.0"
+description = "KeDo Smart V FastAPI AI plan gateway"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115.11",
+  "uvicorn[standard]>=0.34.0",
+  "kedo-ai-core",
+  "pydantic>=2.10.6",
+  "pydantic-settings>=2.8.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kedo_ai_api"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
+
+[tool.uv.sources]
+kedo-ai-core = { workspace = true }

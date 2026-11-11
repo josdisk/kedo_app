@@ -1,0 +1,32 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "dev-make",
+      "displayName": "Proxy — use native/CMakePresets.json",
+      "description": "Run: cd native && cmake --preset dev-make",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/native/build/dev-make-from-root",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "KEDOV_BUILD_TESTS": "ON",
+        "KEDOV_ENABLE_FFMPEG": "OFF"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev-make", "configurePreset": "dev-make" }
+  ],
+  "testPresets": [
+    {
+      "name": "dev-make",
+      "configurePreset": "dev-make",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}

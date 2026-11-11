@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "name": "kedov-aces-lite",
+  "description": "Packaged ACES-compatible roles for KeDo Smart V (COL-002). Not a full Academy OCIO config — libOpenColorIO remains license-gated.",
+  "ocio_compatible": true,
+  "libocio_required": false,
+  "working_space": "ACEScg",
+  "roles": {
+    "reference": "ACES2065-1",
+    "scene_linear": "ACEScg",
+    "compositing_log": "ACEScct",
+    "color_timing": "ACEScct",
+    "data": "Raw",
+    "default": "ACEScg"
+  },
+  "colorspaces": [
+    {
+      "name": "ACES2065-1",
+      "family": "ACES",
+      "is_data": false,
+      "description": "ACES AP0 linear (reference)"
+    },
+    {
+      "name": "ACEScg",
+      "family": "ACES",
+      "is_data": false,
+      "description": "ACES AP1 scene-linear working space"
+    },
+    {
+      "name": "ACEScct",
+      "family": "ACES",
+      "is_data": false,
+      "description": "ACES log working space for timing"
+    },
+    {
+      "name": "Linear Rec.709",
+      "family": "Display",
+      "is_data": false,
+      "description": "Scene-linear Rec.709 primaries"
+    },
+    {
+      "name": "sRGB",
+      "family": "Display",
+      "is_data": false,
+      "description": "Display-referred sRGB (approx. 2.2)"
+    },
+    {
+      "name": "Raw",
+      "family": "Data",
+      "is_data": true,
+      "description": "Non-color data"
+    }
+  ],
+  "displays": [
+    {
+      "name": "sRGB",
+      "views": [
+        { "name": "ACES", "colorspace": "sRGB", "description": "ACEScg → sRGB display" },
+        { "name": "Un-tone-mapped", "colorspace": "Linear Rec.709", "description": "Linear Rec.709 view" }
+      ]
+    },
+    {
+      "name": "Rec.709",
+      "views": [
+        { "name": "ACES", "colorspace": "sRGB", "description": "Rec.709 monitor via sRGB EOTF approx" }
+      ]
+    }
+  ],
+  "looks": [],
+  "active_displays": ["sRGB", "Rec.709"],
+  "active_views": ["ACES", "Un-tone-mapped"]
+}

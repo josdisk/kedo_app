@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.uv/
+
+# Build
+dist/
+dist-test/
+build/
+out/
+.next/
+.turbo/
+cmake-build-*/
+native/build/
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+compile_commands.json
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+
+# Models & media (heavy / private)
+models/weights/
+*.gguf
+*.onnx
+*.pt
+*.ckpt
+!tests/**/*.wav
+!tests/**/*.json
+customer-footage/
+*.kedov.tmp/
+
+# Coverage / logs
+coverage/
+*.log
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.nyc_output/
+
+# Package managers
+.pnpm-debug.log*
+npm-debug.log*
+yarn-error.log*

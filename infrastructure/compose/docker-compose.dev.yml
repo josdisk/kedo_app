@@ -1,0 +1,46 @@
+# Local service stack for R0 (optional). Marketing/studio run via pnpm on the host.
+services:
+  postgres:
+    image: postgres:16.9-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: kedov
+      POSTGRES_PASSWORD: kedov
+      POSTGRES_DB: kedov
+    volumes:
+      - kedov_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kedov -d kedov"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.api
+    ports:
+      - "4000:4000"
+    environment:
+      API_PORT: 4000
+      AUTH_MODE: demo
+      API_DEMO_ORG_ID: org_demo
+      API_DEMO_USER_ID: user_demo
+      # App role after migrations (004_app_role.sql). Bootstrap as kedov to migrate.
+      API_DATABASE_URL: postgresql://kedov_app:kedov_app_dev_only@postgres:5432/kedov
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ai-api:
+    build:
+      context: ../..
+      dockerfile: infrastructure/docker/Dockerfile.ai-api
+    ports:
+      - "8000:8000"
+    environment:
+      AI_PROVIDER: mock
+
+volumes:
+  kedov_pg_data:

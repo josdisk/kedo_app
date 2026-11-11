@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kedosmartv.com/schemas/edit-plan.schema.json",
+  "title": "EditPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "sequence_id",
+    "expected_revision",
+    "mode",
+    "intent",
+    "constraints",
+    "operations",
+    "require_confirmation"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0" },
+    "project_id": { "type": "string", "minLength": 1 },
+    "sequence_id": { "type": "string", "minLength": 1 },
+    "expected_revision": { "type": "integer", "minimum": 0 },
+    "mode": {
+      "type": "string",
+      "enum": ["preview_then_apply", "apply_with_confirmation", "draft_only"]
+    },
+    "intent": { "type": "string", "minLength": 1 },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "preserve_master_audio": { "type": "boolean" },
+        "no_synthetic_content": { "type": "boolean" },
+        "authenticity_lock": { "type": "boolean" }
+      }
+    },
+    "operations": {
+      "type": "array",
+      "maxItems": 64,
+      "items": { "$ref": "#/$defs/operation" }
+    },
+    "require_confirmation": { "type": "boolean" }
+  },
+  "$defs": {
+    "frameRange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start_frame", "end_frame"],
+      "properties": {
+        "start_frame": { "type": "integer", "minimum": 0 },
+        "end_frame": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "operation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "target_clip_id", "range", "source_asset_id", "source_in_frame"],
+          "properties": {
+            "type": { "const": "replace_clip_range" },
+            "target_clip_id": { "type": "string" },
+            "range": { "$ref": "#/$defs/frameRange" },
+            "source_asset_id": { "type": "string" },
+            "source_in_frame": { "type": "integer", "minimum": 0 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "scope", "parameters"],
+          "properties": {
+            "type": { "const": "adjust_grade" },
+            "scope": { "type": "string" },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": { "type": "number" }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "clip_id", "delta_frames"],
+          "properties": {
+            "type": { "const": "slip_clip" },
+            "clip_id": { "type": "string" },
+            "delta_frames": { "type": "integer" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "track_id", "at_frame"],
+          "properties": {
+            "type": { "const": "razor_cut" },
+            "track_id": { "type": "string" },
+            "at_frame": { "type": "integer", "minimum": 0 }
+          }
+        }
+      ]
+    }
+  }
+}

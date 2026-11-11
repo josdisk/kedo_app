@@ -1,0 +1,29 @@
+name: ci-cpp
+
+on:
+  push:
+    paths:
+      - "native/**"
+      - "CMakePresets.json"
+      - ".github/workflows/ci-cpp.yml"
+  pull_request:
+    paths:
+      - "native/**"
+      - "CMakePresets.json"
+
+jobs:
+  cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install toolchain
+        run: sudo apt-get update && sudo apt-get install -y cmake g++
+      - name: Configure
+        working-directory: native
+        run: cmake --preset dev-make
+      - name: Build
+        working-directory: native
+        run: cmake --build --preset dev-make
+      - name: Test
+        working-directory: native
+        run: ctest --preset dev-make --output-on-failure

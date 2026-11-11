@@ -1,0 +1,43 @@
+[project]
+name = "kedo-smart-v"
+version = "0.1.0"
+description = "KeDo Smart V Python workspace (AI schemas, sync tests, agents)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "kedo-ai-core",
+  "kedo-ai-api",
+]
+
+[tool.uv.workspace]
+members = [
+  "python/kedo-ai-core",
+  "services/ai-api",
+]
+
+[tool.uv.sources]
+kedo-ai-core = { workspace = true }
+kedo-ai-api = { workspace = true }
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3.5",
+  "pytest-asyncio>=0.25.3",
+  "httpx>=0.28.1",
+  "ruff>=0.11.2",
+  "mypy>=1.15.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["python/tests", "tests/sync-gold", "services/ai-api/tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["kedo_ai", "kedo_ai_api"]

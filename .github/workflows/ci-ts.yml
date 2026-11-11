@@ -1,0 +1,43 @@
+name: ci-ts
+
+on:
+  push:
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "services/api/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/ci-ts.yml"
+  pull_request:
+    paths:
+      - "apps/**"
+      - "packages/**"
+      - "services/api/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+
+jobs:
+  ts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @kedov/contracts build
+      - run: pnpm --filter @kedov/api-client build
+      - run: pnpm --filter @kedov/design-tokens build
+      - run: pnpm --filter @kedov/contracts test
+      - run: pnpm --filter @kedov/api test
+      # Cross-language contract gate also runs in ci-contracts.yml
+      - run: pnpm --filter @kedov/marketing typecheck
+      - run: pnpm --filter @kedov/studio-web typecheck
+      - run: pnpm --filter @kedov/marketing build
+      - run: pnpm --filter @kedov/studio-web build
+      - run: pnpm --filter @kedov/api build

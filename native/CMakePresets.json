@@ -1,0 +1,85 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 24,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "dev",
+      "displayName": "Developer (Debug)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/dev",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "KEDOV_BUILD_TESTS": "ON",
+        "KEDOV_ENABLE_FFMPEG": "OFF"
+      }
+    },
+    {
+      "name": "dev-make",
+      "displayName": "Developer (Unix Makefiles)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/dev-make",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_STANDARD": "20",
+        "KEDOV_BUILD_TESTS": "ON",
+        "KEDOV_ENABLE_FFMPEG": "OFF"
+      }
+    },
+    {
+      "name": "desktop-qt",
+      "displayName": "Desktop Qt6 shell (LGPL-dev)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build/desktop-qt",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_STANDARD": "20",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "KEDOV_BUILD_TESTS": "ON",
+        "KEDOV_ENABLE_FFMPEG": "OFF",
+        "KEDOV_ENABLE_QT": "ON"
+      },
+      "environment": {
+        "CMAKE_PREFIX_PATH": "$penv{CMAKE_PREFIX_PATH}"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev"
+    },
+    {
+      "name": "dev-make",
+      "configurePreset": "dev-make"
+    },
+    {
+      "name": "desktop-qt",
+      "configurePreset": "desktop-qt",
+      "targets": [
+        "kedov_desktop"
+      ]
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "dev",
+      "configurePreset": "dev",
+      "output": {
+        "outputOnFailure": true
+      }
+    },
+    {
+      "name": "dev-make",
+      "configurePreset": "dev-make",
+      "output": {
+        "outputOnFailure": true
+      }
+    }
+  ]
+}

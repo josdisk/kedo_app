@@ -1,0 +1,24 @@
+{
+  "name": "@kedov/design-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./css": "./src/tokens.css"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "echo \"design-tokens: no unit tests\"",
+    "lint": "echo \"design-tokens: no lint config yet\""
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

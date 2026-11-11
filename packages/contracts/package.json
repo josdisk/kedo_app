@@ -1,0 +1,27 @@
+{
+  "name": "@kedov/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./oidc-hs256": {
+      "types": "./dist/oidc-hs256.d.ts",
+      "import": "./dist/oidc-hs256.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/*.test.js",
+    "lint": "echo \"contracts: no lint config yet\""
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
